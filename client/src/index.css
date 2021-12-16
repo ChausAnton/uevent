@@ -1,0 +1,295 @@
+@import "~materialize-css";
+
+.regButtonMargin {
+    margin-right: 40px;
+}
+
+input.yellow-input {
+    border-bottom: 1px solid #fff!important;
+    box-shadow: 0 1px 0 0 #fff!important;
+}
+
+input.yellow-input + label{
+    color: #ffffff!important;
+}
+
+input.yellow-input:focus {
+    color: #ffeb3b!important;
+}
+
+input.yellow-input:focus {
+    border-bottom: 1px solid #ffeb3b!important;
+    box-shadow: 0 1px 0 0 #ffeb3b!important;
+}
+
+.padingInNavbar {
+    min-width: 780px;
+    padding: 0 2rem;
+}
+
+.categories {
+    font-size: smaller;
+}
+
+
+.profileImage {
+    position: absolute;
+    left: 10px;
+    top: 25%;
+    border-radius: 50%;
+    max-width: 200px;
+    max-height: 200px;
+}
+
+.CardTopBackgroud {
+    position: relative;
+    background: url("public/profile_background.png") no-repeat;
+    min-width: 100%;
+    height: 200px;
+}
+
+.EditButton {
+    position: absolute;
+    right: 10px;
+    top: 58%;
+}
+
+.ProfileUserName {
+    position: absolute;
+    left: 225px;
+    top: 88%;
+    margin: 0px;
+}
+
+.ProfileLogin {
+    position: absolute;
+    left: 225px;
+    top: 68%;
+    margin: 0px;
+}
+
+.UserRating {
+    position: absolute;
+    left: 225px;
+    top: 75%;
+    margin: 0px;
+}
+
+
+.CardContent {
+    min-height: 95px;
+}
+
+.EditProfileImage  {
+    border-radius: 50%;
+    max-width: 200px;
+    max-height: 200px;
+}
+
+.boxForLoadNewImageButton {
+    position: relative;
+    left: 70px;
+    top: -70px;
+}
+
+.LoadNewImage {
+    position: absolute;
+}
+
+.InputInsideButton {
+    display: none;
+}
+
+.ButtonBack {
+    position: absolute;
+    left: 10px;
+    top: 10px;
+}
+
+.PostTitleContainer {
+    min-height: 100%;
+    min-width: 100%;
+}
+
+.PostTitle {
+    position: relative;
+    top: 150px;
+}
+
+.Title {
+    text-align: center;
+}
+
+.PostDate{
+    position: absolute;
+    left: 10px;
+    top: 10px; 
+}
+
+.PostAuthor {
+    position: absolute;
+    left: 10px;
+    top: 60px; 
+}
+
+.Categoies {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+}
+
+.PostCategory {
+    margin-bottom: 15px;
+}
+
+.CommentAuthorBox {
+    min-width: 100%;
+}
+
+.CommentAuthor {
+    float: left;
+    margin: 0 auto;
+}
+.commentContent {
+    min-width: 100%;
+    min-height: 100%;
+}
+
+.CommentText {
+    text-align: left;
+    word-wrap: break-word;
+}
+
+.PostContent {
+    text-align: left;
+    word-wrap: break-word;
+}
+.Like, .Dislike, .RatingContainer {
+    display: inline-block;
+    margin-left: 10px;
+}
+
+.RatingChipBox {
+    min-height: 20px;
+    min-width: 100%;
+}
+
+.RatingBox {
+    position: absolute;
+    left: 20px;
+    bottom: 10px;
+}
+
+.AddCommentBox {
+    min-height: 100px;
+    padding: 20px;
+    margin-bottom: 20px;
+}
+
+.UserInfoNavbar {
+    display: inline-block;
+}
+
+.UserInfoNavbarIcon {
+    position: absolute;
+    font-size: large;
+    top: 25px;
+    left: 183px;
+}
+
+.ChipCustom {
+    min-width: 110px;
+}
+
+.Logo {
+    padding-right: 10px;
+}
+
+.EditButtonPost {
+    position: absolute;
+    right: 10px;
+    top: 52%;
+}
+
+.EditPostButtonBack {
+    position: absolute;
+    left: 10px;
+    top: 10px;
+}
+
+.EditPostTitleCard {
+    min-height: 55px;
+}
+
+.CommentDate {
+    min-width: 100%;
+}
+
+.CommentDateDopBox {
+    float: right;
+}
+
+.ChipPostUserBox {
+    position: relative;
+    top: -115px;
+}
+
+.UserChipBox, .DateChipBox {
+    float: right;
+}
+
+.ChipPostDateBox {
+    position: relative;
+    top: -57px;
+    left: 100px;
+    min-width: 100%;
+}
+
+.searchBarBox {
+    position: relative;
+    top: -70px;
+    margin-left: 100px;
+    margin-right: 100px;
+}
+
+.SearchButton {
+    position: relative;
+    top: -127px;
+    left: -100px;
+}
+
+.SelectForCreateUser {
+    margin-bottom: -10px;
+}
+
+.SelectForEditUser {
+    margin-bottom: -15;
+}
+
+.CommentStatusBox {
+   min-height: 30px;
+}
+
+.InnerCommentStatusBox {
+    float: left;
+}
+
+.FiEdit2Size, .FiArrowLeftSizeEditProfile, .FiPlusSizeEditProfile, .FiArrowDownFiArrowUpSize {
+    position: relative;
+    font-size: x-large;
+    top: 5px;
+}
+
+.FiSendSizeEditProfile {
+    position: relative;
+    font-size: large;
+    top: 5px;
+    right: -5px;
+}
+
+
+.FiArrowDownNavBarDropDown {
+    position: relative;
+    font-size: x-large;
+    top: 7px;
+}
