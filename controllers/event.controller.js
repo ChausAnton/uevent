@@ -302,7 +302,7 @@ exports.getEventDateFilter = async(req, res) => {
     }
 
     if(res.locals.user && res.locals.admin) {
-        Event.findAll({where: {EventCreatedAt: {
+        Event.findAll({where: {eventCreatedAt: {
                     [Op.between]: [data.dateStart, data.dateEnd]
                 }
             }}).then(async(events) => {
@@ -320,7 +320,7 @@ exports.getEventDateFilter = async(req, res) => {
         });
     }
     else {
-        Event.findAll({where: {EventCreatedAt: {
+        Event.findAll({where: {eventCreatedAt: {
             [Op.between]: [data.dateStart, data.dateEnd]
         }, status: 'active'
         }}).then(async(events) => {

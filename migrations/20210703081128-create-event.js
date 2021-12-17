@@ -43,16 +43,11 @@ module.exports = {
       eventLocation: {
         type: Sequelize.STRING
       },
-      EventCreatedAt: {
+      eventCreatedAt: {
         type: 'TIMESTAMP',
         defaultValue: Sequelize.literal('CURRENT_TIMESTAMP'),
         allowNull: false
       },
-      EventCreatedAt: {
-        type: 'TIMESTAMP',
-        defaultValue: Sequelize.literal('CURRENT_TIMESTAMP'),
-        allowNull: false
-      }
     });
   },
   down: async (queryInterface, Sequelize) => {
