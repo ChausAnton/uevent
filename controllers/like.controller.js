@@ -25,7 +25,7 @@ exports.getLikes = async(req, res) => {
     });
 };
 
-exports.getLikesForPost = async(req, res) => {
+exports.getLikesForEvent = async(req, res) => {
     Likes.findAll({where: {event_id: req.params.id}}).then((likes) => {
         if(likes.length > 0) {
             res.status(200).send(likes);

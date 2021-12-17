@@ -30,7 +30,7 @@ app.use('*', checkUser)
 app.use('/image', routes.image)
 app.use('/user', routes.user);
 app.use('/auth', routes.auth);
-app.use('/post', routes.post);
+app.use('/event', routes.event);
 app.use('/comment', routes.comment);
 app.use('/category', routes.category);
 app.use('/like', routes.like);

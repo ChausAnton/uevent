@@ -43,12 +43,12 @@ module.exports = {
       eventLocation: {
         type: Sequelize.STRING
       },
-      PostCreatedAt: {
+      EventCreatedAt: {
         type: 'TIMESTAMP',
         defaultValue: Sequelize.literal('CURRENT_TIMESTAMP'),
         allowNull: false
       },
-      PostUpdatedAt: {
+      EventCreatedAt: {
         type: 'TIMESTAMP',
         defaultValue: Sequelize.literal('CURRENT_TIMESTAMP'),
         allowNull: false

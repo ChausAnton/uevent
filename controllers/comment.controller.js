@@ -48,7 +48,7 @@ exports.getComments = async(req, res) => {
     }
 };
 
-exports.getCommentsForPost = async(req, res) => {
+exports.getCommentsForEvent = async(req, res) => {
     if(res.locals.user && res.locals.admin && req.params.id) {
         db.sequelize.query(`select * from users inner join comments on comments.author_id_comment = users.id where comments.event_id_comment = ${req.params.id} order by comments.likes_comment ASC;`,{ type: db.sequelize.QueryTypes.SELECT }).then((comments) => {
             if(comments) {
@@ -132,7 +132,7 @@ exports.createComment = async(req, res) => {
         res.status(201).send(data);
     }
     else {
-        res.status(403).send("only logged users can create posts");
+        res.status(403).send("only logged users can create comment");
     }
 }
 

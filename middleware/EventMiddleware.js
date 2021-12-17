@@ -3,11 +3,11 @@ const Category_sub_table = db.Category_sub_table;
 const Event = db.Event
 const { Op } = require("sequelize");
 
-exports.addCategory = async(CategroyJson, postID) => {
-    Category_sub_table.destroy({where: {event_id: postID}}).then(async() => {
+exports.addCategory = async(CategroyJson, eventID) => {
+    Category_sub_table.destroy({where: {event_id: eventID}}).then(async() => {
         for(const [key, value] of Object.entries(CategroyJson)) {
             $data = {
-                event_id: postID,
+                event_id: eventID,
                 category_id: value
             };
             try {
@@ -19,39 +19,39 @@ exports.addCategory = async(CategroyJson, postID) => {
     });
 };
 
-exports.getCategoriesForPost = async(post) => {
+exports.getCategoriesForEvent = async(event) => {
     let res = [];
 
     categories = await Category_sub_table.findAll({where: 
-        {event_id: post.id}
+        {event_id: event.id}
     });
 
-    res.push(post)
+    res.push(event)
     res.push(categories)
 
     return res;
 }
 
-exports.getCategoriesForPosts = async(posts) => {
+exports.getCategoriesForEvents = async(events) => {
 
     let res = [];
-    let posts_id = [];
-    for(const post of posts) {
-        posts_id.push(post.id);
+    let events_id = [];
+    for(const event of events) {
+        events_id.push(event.id);
     }
 
     categories = await Category_sub_table.findAll({where: 
         {event_id:  {
-                [Op.or]: posts_id
+                [Op.or]: events_id
             }
         }
     });
 
-    for(const post of posts) {
+    for(const event of events) {
         let temp = [];
-        temp.push(post);
+        temp.push(event);
         for(const cat of categories) {
-            if(cat.event_id == post.id)
+            if(cat.event_id == event.id)
                 temp.push(cat);
         }
         res.push(temp);
@@ -61,27 +61,27 @@ exports.getCategoriesForPosts = async(posts) => {
 
 };
 
-exports.getPostForPage = (page, posts) => {
+exports.getEventForPage = (page, events) => {
     if(!page && page != 0) {
-        return posts;
+        return events;
     }
-    const postsPerPage = 10;
+    const eventsPerPage = 10;
 
-    const startPost = page * postsPerPage;
-    const endPost = page * postsPerPage + 10;
-    let pagePosts = [];
+    const startevent = page * eventsPerPage;
+    const endevent = page * eventsPerPage + 10;
+    let pageevents = [];
 
-    for(let i = startPost; i < endPost; i++) {
-        if(posts[i])
-            pagePosts.push(posts[i]);
+    for(let i = startevent; i < endevent; i++) {
+        if(events[i])
+            pageevents.push(events[i]);
     }
-    return pagePosts;
+    return pageevents;
 };
 
-exports.getPostsByCategory = async(CategroyJson) => {
-    let posts;
+exports.getEventsByCategory = async(CategroyJson) => {
+    let events;
     let categories_id = [];
-    let posts_id = [];
+    let events_id = [];
     for(const [key, value] of Object.entries(CategroyJson)) {
         categories_id.push(value);
     }
@@ -95,16 +95,16 @@ exports.getPostsByCategory = async(CategroyJson) => {
 
 
     for(let cat of categories) {
-        posts_id.push(cat.event_id);
+        events_id.push(cat.event_id);
     }
-    posts = await Event.findAll({where: 
+    events = await Event.findAll({where: 
         {id:  {
-                [Op.or]: posts_id
+                [Op.or]: events_id
             }
         }
     });
 
 
     
-    return posts;
+    return events;
 };
