@@ -34,6 +34,8 @@ app.use('/event', routes.event);
 app.use('/comment', routes.comment);
 app.use('/category', routes.category);
 app.use('/like', routes.like);
+app.use('/subscribe', routes.subscribe);
+
 
 if(process.env.NODE_ENV === 'production') {
     app.use(express.static(path.join(__dirname, "..", "client", "build")))

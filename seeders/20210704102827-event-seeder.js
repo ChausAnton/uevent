@@ -4,7 +4,7 @@ module.exports = {
   up: async (queryInterface, Sequelize) => {
     await queryInterface.bulkInsert('Events', [
       {
-        author_id: 3,
+        author_id: 4,
         title: 'some title',
         content: 'some content',
         likes: 1,
@@ -28,7 +28,7 @@ module.exports = {
         eventDate: "2021-12-16"
       },
       {
-        author_id: 2,
+        author_id: 4,
         title: 'some title',
         content: 'some content',
         likes: 1,
@@ -40,7 +40,7 @@ module.exports = {
         eventDate: "2021-12-16"
       },
       {
-        author_id: 1,
+        author_id: 4,
         title: 'some title',
         content: 'some content',
         likes: 0,

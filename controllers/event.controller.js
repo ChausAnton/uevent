@@ -4,12 +4,14 @@ const EventMiddleware = require('../middleware/EventMiddleware');
 const Event = db.Event
 const sequelize = db.sequelize
 const { Op } = require("sequelize");
+const subscrition = db.subscritionToEvent
 
 exports.getEventDetail = async(req, res) => {
     const result = await db.sequelize.query("select * from Category_sub_tables inner join Categories on Category_sub_tables.category_id = Categories.id inner join events on Category_sub_tables.event_id = events.id left join comments on events.id = comments.event_id_comment inner join users on events.author_id = users.id where events.id = " + req.params.id + " ORDER BY Category_sub_tables.category_id ASC;", { type: db.sequelize.QueryTypes.SELECT });
     if(!result[0]) {
         return res.status(404).send({message: "event not found"})
     }
+    const subscribe = await subscrition.findOne({where: {user_id: res.locals.user.id, event_id: req.params.id}})
     let data = {
         Event_data: {
             event_id: result[0].event_id,
@@ -22,6 +24,7 @@ exports.getEventDetail = async(req, res) => {
             eventLocation: result[0].eventLocation,
             eventDate: result[0].eventDate,
             createdAt: result[0].eventCreatedAt,
+            Subscribed: (subscribe ? true : false)
         },
 
         Author_data: {
@@ -134,7 +137,7 @@ exports.getEvents = async(req, res) => {
         Event.findAll({}).then(async(events) => {
             if(events) {
                 events = EventMiddleware.getEventForPage(req.body.page, events)
-                const eventsCats = await EventMiddleware.getCategoriesForevents(events);
+                const eventsCats = await EventMiddleware.getCategoriesForEvents(events);
                 res.status(200).send(eventsCats)
             }
             else {

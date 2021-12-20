@@ -5,7 +5,7 @@ import comment from './comment';
 import category from './category';
 import like from './like';
 import image from './image'
-
+import subscribe from './subscribe'
 
 export default {
     user,
@@ -14,7 +14,8 @@ export default {
     comment,
     category,
     like,
-    image
+    image,
+    subscribe
 };
 
 

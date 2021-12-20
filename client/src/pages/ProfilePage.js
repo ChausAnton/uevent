@@ -9,7 +9,7 @@ export const ProfilePage = () => {
     const [user, setUser] = useState();
     const [events, setPosts] = useState();
     const {loading, request} = useHttp();
-    const {userId, token} = useContext(AuthContext);
+    const {userId, token, role} = useContext(AuthContext);
     const {id} = useParams();
 
     const fetchUser = useCallback(async() => {
@@ -27,10 +27,14 @@ export const ProfilePage = () => {
     const fetchPosts = useCallback(async() => {
         try {
             let fetched;
-            if(id)
+            
+            if(id && role.localeCompare('company') === 0)
                 fetched = await request('/event/getEventsForUser/' + id, 'GET', null, {'x-access-token': token})
-            else 
+            else if(role.localeCompare('company') === 0)
                 fetched = await request('/event/getEventsForUser/' + userId, 'GET', null, {'x-access-token': token})
+            else if(role.localeCompare('company') !== 0)
+                fetched = await request('/subscribe/getAllSubsForUser', 'GET', null, {'x-access-token': token})
+
             setPosts(fetched)
         }
         catch (e) {}

@@ -18,7 +18,7 @@ module.exports = {
         real_name: 'user1',
         email: '22@gmail.com',
         password: bcrypt.hashSync('1111', 8),
-        rating: '1',
+        rating: '0',
         image_path: 'User.png',
         role: 'user'
       },
@@ -27,18 +27,18 @@ module.exports = {
         real_name: 'user2',
         email: '33@gmail.com',
         password: bcrypt.hashSync('1111', 8),
-        rating: '1',
+        rating: '0',
         image_path: 'User.png',
         role: 'user'
       },
       {
-        login: 'user3',
-        real_name: 'user3',
-        email: '44@gmail.com',
+        login: 'comp',
+        real_name: 'company',
+        email: 'company@gmail.com',
         password: bcrypt.hashSync('1111', 8),
-        rating: '1',
+        rating: '3',
         image_path: 'User.png',
-        role: 'user'
+        role: 'company'
       }
     ]);
   },

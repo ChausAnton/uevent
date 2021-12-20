@@ -27,7 +27,7 @@ exports.getUsers = async(req, res) => {
 
 exports.updateUser = async(req, res) => {
     const schema = {
-        role: { type: "string", optional: true, enum: [ "user", "admin" ] },
+        role: { type: "string", optional: true, enum: [ "user", "admin", "company" ] },
         real_name: {type: "string", optional: true, max: "100"},
     }
 

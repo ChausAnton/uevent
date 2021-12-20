@@ -52,6 +52,13 @@ export const EventDetail = ({event, commentsData}) => {
         setEditPost(false)
     }
 
+    const subscribe = async() => {
+        try {
+            await request('/subscribe/createSubscription/' + event.Event_data.event_id, 'POST', null, {'x-access-token': token})
+            window.location.reload();
+        }
+        catch (e) {}
+    }
 
     return (
         <>
@@ -73,8 +80,8 @@ export const EventDetail = ({event, commentsData}) => {
                             </div>
                         </div>
                         <div className="subscribe">
-                            <div className="chip">
-                                <span>subscribe</span>
+                            <div className="chip" onClick={subscribe}>
+                                <span>{(event.Event_data.Subscribed ? "unsubscribe" : "subscribe")}</span>
                             </div>
                         </div>
                         <div className="eventLocation">
