@@ -41,6 +41,9 @@ export const EventsList = ({events, category, SearchField}) => {
         nextPage += '/' + SearchField;
         prevPage += '/' + SearchField;
     }
+    console.log(events)
+//    event date: {event.Event_data.eventDate.split('T')[0]}
+
     return (
         <div>
             { events.events.map((event) => {
@@ -68,7 +71,7 @@ export const EventsList = ({events, category, SearchField}) => {
                                             </div>
                                             <div className="ChipPostDateBox">
                                                 <div className="chip DateChipBox">
-                                                    Posted on: {event.createdAt.split("T")[0]}
+                                                    event date: {event.eventDate.split('T')[0]}
                                                 </div>
                                             </div>
                                         </div>

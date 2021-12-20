@@ -5,6 +5,7 @@ import { Comments } from "./Comments";
 import { useMessage } from '../hooks/message.hook';
 import { AuthContext } from '../context/AuthContext';
 import { EditEvent } from "./EditEvent";
+import { Subscribe } from "./Subscribe";
 import { FiEdit2, FiArrowDown, FiArrowUp } from "react-icons/fi";
 
 export const EventDetail = ({event, commentsData}) => {
@@ -13,6 +14,8 @@ export const EventDetail = ({event, commentsData}) => {
     const {request, error, clearError} = useHttp();
     const message = useMessage();
     const [editPost, setEditPost] = useState(false);
+    const [subscribe, setSubscribe] = useState(false);
+
     
     useEffect( () => {
         message(error);
@@ -29,7 +32,6 @@ export const EventDetail = ({event, commentsData}) => {
     if(!event) {
         return <p className="center">event not found</p>
     }
-    console.log(event)
    const likeDislikeHandler = (event) => {
         setLikeDislike(event.target.id)
    }
@@ -49,11 +51,23 @@ export const EventDetail = ({event, commentsData}) => {
     }
 
     const setEditPostOnFalse = () => {
-        setEditPost(false)
+        setSubscribe(false)
     }
 
-    const subscribe = async() => {
+    const setSubscribeOnTrue = () => {
+        setSubscribe(true)
+
+    }
+
+    const setSubscribeOnFalse = () => {
+        setEditPost(false)
+        window.location.reload();
+    }
+
+    const subscribeFetch = async() => {
         try {
+            if(!event.Event_data.Subscribed)
+                return setSubscribeOnTrue()
             await request('/subscribe/createSubscription/' + event.Event_data.event_id, 'POST', null, {'x-access-token': token})
             window.location.reload();
         }
@@ -64,7 +78,7 @@ export const EventDetail = ({event, commentsData}) => {
         <>
         { editPost ? (<div> 
             <EditEvent setEditPostOnFalse={setEditPostOnFalse}/> 
-        </div>) : 
+        </div>) : subscribe ? <Subscribe setSubscribeOnFalse={setSubscribeOnFalse} id={event.Event_data.event_id}/>  :
         (<div className="center">
             <div className="col s4 m4">
                 <div className="card">
@@ -80,7 +94,7 @@ export const EventDetail = ({event, commentsData}) => {
                             </div>
                         </div>
                         <div className="subscribe">
-                            <div className="chip" onClick={subscribe}>
+                            <div className="chip" onClick={subscribeFetch}>
                                 <span>{(event.Event_data.Subscribed ? "unsubscribe" : "subscribe")}</span>
                             </div>
                         </div>

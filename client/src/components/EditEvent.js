@@ -93,7 +93,7 @@ export const EditEvent = ({setEditPostOnFalse}) => {
                     <button className="btn-floating btn-large waves-effect waves-light grey lighten-1 EditPostButtonBack" onClick={setEditPostOnFalse}> 
                             <FiArrowLeft className="FiArrowLeftSizeEditProfile"/>
                     </button>
-                    <span className="card-title center-align EditPostTitleCard">Edit Post</span>
+                    <span className="card-title center-align EditPostTitleCard">Edit event</span>
                         <div>
                         <div className="input-field">
                                 <input placeholder="input title" 

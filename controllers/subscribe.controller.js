@@ -11,11 +11,13 @@ exports.createSubscription = async(req, res) => {
     const schema = {
         event_id: { type: "number", optional: false},
         user_id: {type: "number", optional: false},
+        promoCode: {type: "string", optional: true, min: 4, max: 4},
     }
 
     let data = {
         event_id: (req.params.id ? parseInt(req.params.id) : null),
         user_id: res.locals.user.id,
+        promoCode: req.body.promoCode
     }
 
     const v = new Validator();
@@ -26,7 +28,16 @@ exports.createSubscription = async(req, res) => {
             errors: validationresponse
         });
     }
+    let check = null
+    if(req.body.promoCode)
+        check = await Event.findOne({where: {id: req.params.id, promoCode: req.body.promoCode}})
 
+    if(req.body.promoCode && !check) {
+        return res.status(403).send({message: "unknown promocode"})
+
+    }
+
+    delete data.promoCode
     const result = await subscrition.findOrCreate({where: data})
 
     if(result[1] === false) {
