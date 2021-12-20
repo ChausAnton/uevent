@@ -20,6 +20,9 @@ module.exports = {
       title: {
         type: Sequelize.STRING
       },
+      eventDate: {
+        type: Sequelize.DATE
+      },
       content: {
         type: Sequelize.TEXT,
         allowNull: true

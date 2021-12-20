@@ -2,13 +2,13 @@ import React, { useCallback, useContext, useEffect, useState } from 'react';
 import { useHttp } from '../hooks/http.hook';
 import {AuthContext} from '../context/AuthContext'
 import { Loader } from '../components/Loader';
-import { PostsList } from '../components/PostsList';
+import { EventsList } from '../components/EventsList';
 import { useParams } from "react-router-dom";
 
 
 export const HomePage = () => {
     const {page, category, SearchField} = useParams();
-    const [posts, setPosts] = useState();
+    const [events, setPosts] = useState();
     const {loading, request} = useHttp();
     const {token} = useContext(AuthContext);
 
@@ -21,7 +21,7 @@ export const HomePage = () => {
                 UrlParams += '/' + category;
             if(SearchField) 
                 UrlParams += '/' + SearchField;
-            const fetched = await request('/post/getPostPerPage' + UrlParams, 'GET', null, {
+            const fetched = await request('/event/getEventPerPage' + UrlParams, 'GET', null, {
                 'x-access-token': token
             })
             setPosts(fetched)
@@ -39,7 +39,7 @@ export const HomePage = () => {
 
     return (
         <>
-            {!loading && <PostsList posts={posts} category={category} SearchField={SearchField}/>}
+            {!loading && <EventsList events={events} category={category} SearchField={SearchField}/>}
         </>
     );
 }

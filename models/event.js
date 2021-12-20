@@ -21,7 +21,8 @@ module.exports = (sequelize, DataTypes) => {
     numberOfTickets: DataTypes.INTEGER,
     ticketPrice: DataTypes.INTEGER,
     promoCode: {type: DataTypes.STRING, unique: true},
-    eventLocation: DataTypes.STRING
+    eventLocation: DataTypes.STRING,
+    eventDate: DataTypes.DATE
   }, {
     sequelize,
     modelName: 'Event',

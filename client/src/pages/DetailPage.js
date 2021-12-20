@@ -3,13 +3,13 @@ import { useParams } from "react-router-dom";
 import { useHttp } from '../hooks/http.hook';
 import {AuthContext} from '../context/AuthContext'
 import { Loader } from '../components/Loader';
-import { PostDetail } from '../components/PostDetail';
+import { EventDetail } from '../components/EventDetail';
 
 
 export const DetailPage = () => {
     const {id} = useParams();
 
-    const [post, setPost] = useState();
+    const [event, setPost] = useState();
     const [comments, setComments] = useState();
 
     const {loading, request} = useHttp();
@@ -17,11 +17,11 @@ export const DetailPage = () => {
 
     const fetchPost = useCallback(async() => {
         try {
-            const posts = await request('/post/getPostDetail/' + id, 'GET', null, {
+            const events = await request('/event/getEventDetail/' + id, 'GET', null, {
                 'x-access-token': token
             })
-            setPost(posts)
-            const Comments = await request('/comment/getCommentsForPost/' + id, 'GET', null, {
+            setPost(events)
+            const Comments = await request('/comment/getCommentsForEvent/' + id, 'GET', null, {
                 'x-access-token': token
             })
             setComments(Comments)
@@ -39,7 +39,7 @@ export const DetailPage = () => {
     
     return (
         <>
-            {!loading && <PostDetail post={post} commentsData={comments}/>}
+            {!loading && <EventDetail event={event} commentsData={comments}/>}
         </>
     );
 }

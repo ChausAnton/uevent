@@ -126,10 +126,26 @@ input.yellow-input:focus {
     top: 10px; 
 }
 
+.subscribe {
+    position: absolute;
+    left: 10px;
+    top: 130px; 
+}
+
+.eventLocation{
+    margin-bottom: -30px;
+}
+
+.ticketPrice{
+    position: absolute;
+    left: 10px;
+    top: 50px; 
+}
+
 .PostAuthor {
     position: absolute;
     left: 10px;
-    top: 60px; 
+    top: 90px; 
 }
 
 .Categoies {

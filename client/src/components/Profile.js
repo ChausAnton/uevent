@@ -5,7 +5,7 @@ import { useParams } from "react-router-dom";
 import { Link} from "react-router-dom";
 import { FiEdit2} from "react-icons/fi";
 
-export const Profile = ({user, posts}) => {
+export const Profile = ({user, events}) => {
     const [editProfile, setEditProfile] = useState(false);
     const {userId, role} = useContext(AuthContext);
     const {id} = useParams();
@@ -57,15 +57,15 @@ export const Profile = ({user, posts}) => {
                         </div>
                     </div> 
             </div>
-                {posts ? posts.map(post => {
+                {events ? events.map(event => {
                         return (
-                            <Link key={post.id} to={`/detail/${post.id}`}>
+                            <Link key={event.id} to={`/detail/${event.id}`}>
                                 <div>
                                     <div className="divider"></div>
                                     <div className="section">
                                         <div className="card-panel blue darken-1 hoverable">
-                                            <h3 className="white-text">{post.title}</h3>
-                                            <p className="white-text flow-text">{post.content}</p>
+                                            <h3 className="white-text">{event.title}</h3>
+                                            <p className="white-text flow-text">{event.content}</p>
                                         </div>
                                     </div>
                                 </div>

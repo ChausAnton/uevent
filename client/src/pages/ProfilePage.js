@@ -7,7 +7,7 @@ import { useParams } from "react-router-dom";
 
 export const ProfilePage = () => {
     const [user, setUser] = useState();
-    const [posts, setPosts] = useState();
+    const [events, setPosts] = useState();
     const {loading, request} = useHttp();
     const {userId, token} = useContext(AuthContext);
     const {id} = useParams();
@@ -28,9 +28,9 @@ export const ProfilePage = () => {
         try {
             let fetched;
             if(id)
-                fetched = await request('/post/getPostsForUser/' + id, 'GET', null, {'x-access-token': token})
+                fetched = await request('/event/getEventsForUser/' + id, 'GET', null, {'x-access-token': token})
             else 
-                fetched = await request('/post/getPostsForUser/' + userId, 'GET', null, {'x-access-token': token})
+                fetched = await request('/event/getEventsForUser/' + userId, 'GET', null, {'x-access-token': token})
             setPosts(fetched)
         }
         catch (e) {}
@@ -47,7 +47,7 @@ export const ProfilePage = () => {
 
     return (
         <>
-            {!loading && <Profile user={user} posts={posts}/>}
+            {!loading && <Profile user={user} events={events}/>}
         </>
     );
 

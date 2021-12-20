@@ -76,7 +76,7 @@ export const EditProfile = ({setEditProfileOnFalse, user}) => {
                 const data = new FormData();
                 data.append("file", file)
                 
-                axios.post('/image/uploadUserImage/' + userId, data, {headers: {'x-access-token': token,
+                axios.event('/image/uploadUserImage/' + userId, data, {headers: {'x-access-token': token,
                                                                                         'Content-Type': 'application/json',
                                                                                         'Acceptccept': 'application/json'
                                                                                         }})

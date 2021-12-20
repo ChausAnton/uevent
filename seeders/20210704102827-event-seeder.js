@@ -12,7 +12,8 @@ module.exports = {
         numberOfTickets: 60,
         ticketPrice: 300,
         promoCode: "4c4c",
-        eventLocation: "some location"
+        eventLocation: "some location",
+        eventDate: "2021-12-16"
       },
       {
         author_id: 4,
@@ -23,7 +24,8 @@ module.exports = {
         numberOfTickets: 60,
         ticketPrice: 300,
         promoCode: "4n4c",
-        eventLocation: "some location"
+        eventLocation: "some location",
+        eventDate: "2021-12-16"
       },
       {
         author_id: 2,
@@ -34,7 +36,8 @@ module.exports = {
         numberOfTickets: 60,
         ticketPrice: 300,
         promoCode: "4b4c",
-        eventLocation: "some location"
+        eventLocation: "some location",
+        eventDate: "2021-12-16"
       },
       {
         author_id: 1,
@@ -45,7 +48,8 @@ module.exports = {
         numberOfTickets: 60,
         ticketPrice: 300,
         promoCode: "4v4c",
-        eventLocation: "some location"
+        eventLocation: "some location",
+        eventDate: "2021-12-16"
       }
     ]);
   },

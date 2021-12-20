@@ -4,10 +4,10 @@ import { useHttp } from "../hooks/http.hook";
 import { Comments } from "./Comments";
 import { useMessage } from '../hooks/message.hook';
 import { AuthContext } from '../context/AuthContext';
-import { EditPost } from "./EditPost";
+import { EditEvent } from "./EditEvent";
 import { FiEdit2, FiArrowDown, FiArrowUp } from "react-icons/fi";
 
-export const PostDetail = ({post, commentsData}) => {
+export const EventDetail = ({event, commentsData}) => {
     const history = useHistory();
     const {token, userId} = useContext(AuthContext);
     const {request, error, clearError} = useHttp();
@@ -21,23 +21,23 @@ export const PostDetail = ({post, commentsData}) => {
 
     const setLikeDislike = async(type) => {
         try {
-            await request('/like/createLike', 'POST', {type: type, post_id: post.Post_data.post_id}, {'x-access-token': token})
+            await request('/like/createLike', 'POST', {type: type, event_id: event.Event_data.event_id}, {'x-access-token': token})
         }
         catch (e) {}
     }
 
-    if(!post) {
-        return <p className="center">Post not found</p>
+    if(!event) {
+        return <p className="center">event not found</p>
     }
-
+    console.log(event)
    const likeDislikeHandler = (event) => {
         setLikeDislike(event.target.id)
    }
 
-    const authorImage = "/image/getUserImage/" + post.Author_data.author_id;
+    const authorImage = "/image/getUserImage/" + event.Author_data.author_id;
 
     const ShowAuthorProfile = () => {
-        history.push('/profile/' + post.Author_data.author_id)
+        history.push('/profile/' + event.Author_data.author_id)
     }
 
     const ShowPostsByCategory = (event) => {
@@ -56,7 +56,7 @@ export const PostDetail = ({post, commentsData}) => {
     return (
         <>
         { editPost ? (<div> 
-            <EditPost setEditPostOnFalse={setEditPostOnFalse}/> 
+            <EditEvent setEditPostOnFalse={setEditPostOnFalse}/> 
         </div>) : 
         (<div className="center">
             <div className="col s4 m4">
@@ -64,18 +64,33 @@ export const PostDetail = ({post, commentsData}) => {
                     <div className="CardTopBackgroud">
                         <div className="PostDate">
                             <div className="chip">
-                                <span>Posted on: {post.Post_data.createdAt.split('T')[0]}</span>
+                                <span>event date: {event.Event_data.eventDate.split('T')[0]}</span>
+                            </div>
+                        </div>
+                        <div className="ticketPrice">
+                            <div className="chip">
+                                <span>ticket price: {event.Event_data.ticketPrice}</span>
+                            </div>
+                        </div>
+                        <div className="subscribe">
+                            <div className="chip">
+                                <span>subscribe</span>
+                            </div>
+                        </div>
+                        <div className="eventLocation">
+                            <div className="chip">
+                                <span>event location: {event.Event_data.eventLocation}</span>
                             </div>
                         </div>
                         <div className="PostAuthor">
                             <div className="chip" onClick={ShowAuthorProfile}>
                                 <img src={authorImage} alt="Contact Person" />
-                                {post.Author_data.real_name}
+                                {event.Author_data.real_name}
                             </div>
                         </div>
                         <div className="Categoies">
                         {
-                            post.Categories_data.map((category, index) => {
+                            event.Categories_data.map((category, index) => {
                                 return (
                                     <div key={index} className="PostCategory">
                                         <div className="chip Category" onClick={ShowPostsByCategory}>
@@ -88,25 +103,25 @@ export const PostDetail = ({post, commentsData}) => {
                         </div>
                         <div className="PostTitleContainer">
                             <div className="PostTitle">
-                                <span className="card-title Title">{post.Post_data.title}</span>
+                                <span className="card-title Title">{event.Event_data.title}</span>
                             </div>
                         </div>
                     </div>
-                    {post.Author_data.author_id === userId ? 
+                    {event.Author_data.author_id === userId ? 
                         <button className="btn-floating btn-large waves-effect waves-light red EditButtonPost" onClick={setEditPostOnTrue}> 
                                     <FiEdit2 className="FiEdit2Size"/>
                         </button> :
                         <></>
                     }
                     <div className="card-content CardContent blue darken-2">
-                        <h3 className="white-text flow-text PostContent">{post.Post_data.content}</h3>
+                        <h3 className="white-text flow-text PostContent">{event.Event_data.content}</h3>
                         <div className="RatingChipBox">
                             <div className="RatingBox chip">
                                 <div className="Like" id={1} onClick={likeDislikeHandler} >
                                     <FiArrowUp className="FiArrowDownFiArrowUpSize"/>
                                 </div>
                                 <div className="RatingContainer">
-                                    <span className="flow-text">{post.Post_data.likes}</span>
+                                    <span className="flow-text">{event.Event_data.likes}</span>
                                 </div>
                                 <div className="Dislike" onClick={likeDislikeHandler} id={-1}>
                                     <FiArrowDown className="FiArrowDownFiArrowUpSize"/>

@@ -39,7 +39,12 @@ export const RegisterPage = () => {
     };
 
     const options = [{value: "user", label: "user"},
-                    {value: "admin", label: "admin"}];
+                    {value: "admin", label: "admin"},
+                    {value: "company", label: "company"}];
+
+    const userOptions = [{value: "user", label: "user"},
+                    {value: "company", label: "company"}];
+
 
     const history = useHistory();
     const signInHandler = event => {
@@ -141,7 +146,19 @@ export const RegisterPage = () => {
                                     onChange={chengeHandler}
                                     />
                                     <label htmlFor="role" hidden>role</label>
-                                </div> : <></>
+                                </div> : <><div className="input-field col s12 SelectForCreateUser">
+                                <Select 
+                                    defaultValue={{ label: "user", value: "user" }}
+                                    placeholder="Select user's role"
+                                    options={userOptions}
+                                    closeMenuOnSelect={true}
+                                    id="role" 
+                                    name="role" 
+                                    styles={SelectStyle}
+                                    onChange={chengeHandler}
+                                    />
+                                    <label htmlFor="role" hidden>role</label>
+                                </div></>
                             }
                         </div>
                 </div>

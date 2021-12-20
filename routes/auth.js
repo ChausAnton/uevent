@@ -1,8 +1,6 @@
 import { Router } from "express";
 const auth = require('../controllers/auth.controller');
 const router = Router();
-const db = require('../models');
-const User = db.User;
 
 
 router.post('/signIn', auth.signIn);

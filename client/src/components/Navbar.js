@@ -132,7 +132,7 @@ export const Navbar = () => {
                             <li><i onClick={setSearchActiveOnTrue}><FiSearch /></i></li>
                             {(role && role.localeCompare('admin') === 0) ? <li><NavLink to="/register">Create new user</NavLink></li> : <></>}
                             <li><a className="dropdown-trigger" href="/" data-target="dropdown1" id="dropdown-trigger">Categories<MdKeyboardArrowDown  className="FiArrowDownNavBarDropDown"/></a></li>
-                            <li><NavLink to="/create">Create Post</NavLink></li>
+                            {(role && role.localeCompare('company') === 0) ? <li><NavLink to="/create">Create event</NavLink></li> : <></>}
                             <li><a className="blue darken-3" href="/home" onClick={logoutHandler}>Logout</a></li>
                         </ul>
                     </div>

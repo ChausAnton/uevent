@@ -7,7 +7,7 @@ import { useParams } from "react-router-dom";
 import { FiArrowLeft, FiSend } from "react-icons/fi";
 
 
-export const EditPost = ({setEditPostOnFalse}) => {
+export const EditEvent = ({setEditPostOnFalse}) => {
     const message = useMessage();
 
     const {token} = useContext(AuthContext);
@@ -15,7 +15,7 @@ export const EditPost = ({setEditPostOnFalse}) => {
     const {id} = useParams();
 
     const [form, setForm] = useState ( {
-        title: '', content: '', category_id: {}
+        title: '', content: '', category_id: {}, ticketPrice: null, promoCode: "", eventLocation: "", eventDate: ""
     });
 
     useEffect( () => {
@@ -45,7 +45,7 @@ export const EditPost = ({setEditPostOnFalse}) => {
                 if(value || ((typeof(value)).localeCompare("object") === 0 && Object.keys(value).length !== 0))
                     obj[key] = value
             }
-            await request('/post/updatePost/' + id, 'PUT', {...obj}, {'x-access-token': token})
+            await request('/event/updateEvent/' + id, 'PUT', {...obj}, {'x-access-token': token})
             window.location.reload();
             setEditPostOnFalse();
         }
@@ -95,7 +95,7 @@ export const EditPost = ({setEditPostOnFalse}) => {
                     </button>
                     <span className="card-title center-align EditPostTitleCard">Edit Post</span>
                         <div>
-                            <div className="input-field">
+                        <div className="input-field">
                                 <input placeholder="input title" 
                                     id="title" 
                                     type="text" 
@@ -116,6 +116,50 @@ export const EditPost = ({setEditPostOnFalse}) => {
                                     />
 
                                 <label htmlFor="content">content</label>
+                            </div>
+                            <div className="input-field">
+                                <input placeholder="input ticket price" 
+                                    id="ticketPrice" 
+                                    type="text" 
+                                    name="ticketPrice" 
+                                    className="yellow-input white-text" 
+                                    onChange={chengeHandler} 
+                                    />
+
+                                <label htmlFor="ticketPrice">ticket price</label>
+                            </div>
+                            <div className="input-field">
+                                <input placeholder="input promocode" 
+                                    id="promoCode" 
+                                    type="text" 
+                                    name="promoCode" 
+                                    className="yellow-input white-text" 
+                                    onChange={chengeHandler} 
+                                    />
+
+                                <label htmlFor="promoCode">promocode</label>
+                            </div>
+                            <div className="input-field">
+                                <input placeholder="input event date" 
+                                    id="eventDate" 
+                                    type="text" 
+                                    name="eventDate" 
+                                    className="yellow-input white-text" 
+                                    onChange={chengeHandler} 
+                                    />
+
+                                <label htmlFor="eventDate">event date</label>
+                            </div>
+                            <div className="input-field">
+                                <input placeholder="input event location" 
+                                    id="eventLocation" 
+                                    type="text" 
+                                    name="eventLocation" 
+                                    className="yellow-input white-text" 
+                                    onChange={chengeHandler} 
+                                    />
+
+                                <label htmlFor="eventLocation">event location</label>
                             </div>
                             <div className="input-field">
                                 <p className="categories">Categories</p>

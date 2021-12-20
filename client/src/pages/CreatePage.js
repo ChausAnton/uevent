@@ -15,7 +15,7 @@ export const CreatePage = () => {
     const {loading, error, request, clearError} = useHttp()
 
     const [form, setForm] = useState ( {
-        title: '', content: '', category_id: {}
+        title: '', content: '', category_id: {}, ticketPrice: null, promoCode: "", eventLocation: "", eventDate: ""
     });
 
     useEffect( () => {
@@ -40,7 +40,7 @@ export const CreatePage = () => {
     const PostHandler = async(event) => {
         try {
             event.preventDefault();
-            await request('/post/createPost', 'POST', {...form}, {'x-access-token': token})
+            await request('/event/createEvent', 'POST', {...form}, {'x-access-token': token})
             history.push('/')
         }
         catch (e) {}
@@ -108,6 +108,50 @@ export const CreatePage = () => {
                                     />
 
                                 <label htmlFor="content">content</label>
+                            </div>
+                            <div className="input-field">
+                                <input placeholder="input ticket price" 
+                                    id="ticketPrice" 
+                                    type="text" 
+                                    name="ticketPrice" 
+                                    className="yellow-input white-text" 
+                                    onChange={chengeHandler} 
+                                    />
+
+                                <label htmlFor="ticketPrice">ticket price</label>
+                            </div>
+                            <div className="input-field">
+                                <input placeholder="input promocode" 
+                                    id="promoCode" 
+                                    type="text" 
+                                    name="promoCode" 
+                                    className="yellow-input white-text" 
+                                    onChange={chengeHandler} 
+                                    />
+
+                                <label htmlFor="promoCode">promocode</label>
+                            </div>
+                            <div className="input-field">
+                                <input placeholder="input event date" 
+                                    id="eventDate" 
+                                    type="text" 
+                                    name="eventDate" 
+                                    className="yellow-input white-text" 
+                                    onChange={chengeHandler} 
+                                    />
+
+                                <label htmlFor="eventDate">event date</label>
+                            </div>
+                            <div className="input-field">
+                                <input placeholder="input event location" 
+                                    id="eventLocation" 
+                                    type="text" 
+                                    name="eventLocation" 
+                                    className="yellow-input white-text" 
+                                    onChange={chengeHandler} 
+                                    />
+
+                                <label htmlFor="eventLocation">event location</label>
                             </div>
                             <div className="input-field">
                                 <p className="categories">Categories</p>

@@ -4,12 +4,12 @@ import { AuthContext } from "../context/AuthContext";
 import { useHttp } from "../hooks/http.hook";
 import { FiArrowRight, FiArrowLeft} from "react-icons/fi";
 
-export const PostsList = ({posts, category, SearchField}) => {
+export const EventsList = ({events, category, SearchField}) => {
     const history = useHistory();
     const {role, token} = useContext(AuthContext);
     const {request} = useHttp();
-    if(!posts) {
-        return <p className="center">Posts not found</p>
+    if(!events) {
+        return <p className="center">Events not found</p>
     }
     if(!category)
         category = "";
@@ -19,20 +19,20 @@ export const PostsList = ({posts, category, SearchField}) => {
         history.push('/profile/' + event.target.id)
     }
 
-    const postToActiveInactive = async(event) => {
+    const eventToActiveInactive = async(event) => {
         event.preventDefault();
         try {
             const toStatus = event.target.innerText.split(' ')[1]
-            await request('/post/updatePost/' + event.target.id, 'PUT', {status: toStatus}, {'x-access-token': token})
+            await request('/event/updateEvent/' + event.target.id, 'PUT', {status: toStatus}, {'x-access-token': token})
             window.location.reload();
         }
         catch (e) {}
     }
 
-    const postsPerPage = 2
-    const numberOfPages = (posts.postsCount % postsPerPage) === 0 ? (posts.postsCount / postsPerPage) : parseInt((posts.postsCount / postsPerPage) + 1);
-    let nextPage = (parseInt(posts.CurPage) + 1) <= numberOfPages ? `/home/${(parseInt(posts.CurPage) + 1)}` : `/home/${numberOfPages}`;
-    let prevPage = (parseInt(posts.CurPage) - 1) > 0 ? `/home/${(parseInt(posts.CurPage) - 1)}` :  `/home/1`;
+    const eventsPerPage = 2
+    const numberOfPages = (events.eventsCount % eventsPerPage) === 0 ? (events.eventsCount / eventsPerPage) : parseInt((events.eventsCount / eventsPerPage) + 1);
+    let nextPage = (parseInt(events.CurPage) + 1) <= numberOfPages ? `/home/${(parseInt(events.CurPage) + 1)}` : `/home/${numberOfPages}`;
+    let prevPage = (parseInt(events.CurPage) - 1) > 0 ? `/home/${(parseInt(events.CurPage) - 1)}` :  `/home/1`;
     if(category) {
         nextPage += '/' + category;
         prevPage += '/' + category;
@@ -43,9 +43,9 @@ export const PostsList = ({posts, category, SearchField}) => {
     }
     return (
         <div>
-            { posts.posts.map((post) => {
+            { events.events.map((event) => {
                 return (
-                    <Link key={post.id} to={`/detail/${post.id}`}>
+                    <Link key={event.id} to={`/detail/${event.id}`}>
                         <div>
                             <div className="divider"></div>
                             <div className="section">
@@ -53,22 +53,22 @@ export const PostsList = ({posts, category, SearchField}) => {
                                     <div className="CardContentBox">
                                         <div className="PostContentBox">
                                             <div className="PostTitleBox">
-                                                <h3 className="white-text">{post.title}</h3>
+                                                <h3 className="white-text">{event.title}</h3>
                                             </div>
                                             <div className="PostContentBox">
-                                                <p className="white-text flow-text">{post.content}</p>
+                                                <p className="white-text flow-text">{event.content}</p>
                                             </div>
                                         </div>
                                         <div className="PostInforBox">
                                             <div className="ChipPostUserBox">
-                                                <div className="chip UserChipBox" onClick={openUser} id={post.author_id}>
-                                                    <img src={`/image/getUserImage/${post.author_id}`} alt="Contact Person" />
-                                                    {post.real_name}
+                                                <div className="chip UserChipBox" onClick={openUser} id={event.author_id}>
+                                                    <img src={`/image/getUserImage/${event.author_id}`} alt="Contact Person" />
+                                                    {event.real_name}
                                                 </div>
                                             </div>
                                             <div className="ChipPostDateBox">
                                                 <div className="chip DateChipBox">
-                                                    Posted on: {post.createdAt.split("T")[0]}
+                                                    Posted on: {event.createdAt.split("T")[0]}
                                                 </div>
                                             </div>
                                         </div>
@@ -76,14 +76,14 @@ export const PostsList = ({posts, category, SearchField}) => {
                                 </div>
                                     {(role && role.localeCompare('admin') === 0) ? 
                                         <><div className="chip">
-                                            Status: {post.status}
+                                            Status: {event.status}
                                         </div>
-                                        {(post.status && post.status.localeCompare('active') === 0) ? 
-                                            <div className={"chip " + post.status} onClick={postToActiveInactive} id={post.id}>
+                                        {(event.status && event.status.localeCompare('active') === 0) ? 
+                                            <div className={"chip " + event.status} onClick={eventToActiveInactive} id={event.id}>
                                                 to inactive
                                             </div>
                                             :
-                                            <div className={"chip " + post.status} onClick={postToActiveInactive} id={post.id}>
+                                            <div className={"chip " + event.status} onClick={eventToActiveInactive} id={event.id}>
                                                 to active
                                             </div>
                                         }</>
@@ -103,7 +103,7 @@ export const PostsList = ({posts, category, SearchField}) => {
                         UrlParams += '/' + category;
                     if(SearchField) 
                         UrlParams += '/' + SearchField;
-                    if(parseInt(posts.CurPage) === page) {
+                    if(parseInt(events.CurPage) === page) {
                         return (
                             <li key={page} className="active"><a href={UrlParams}>{page}</a></li>
                         );

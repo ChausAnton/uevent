@@ -25,7 +25,7 @@ exports.signUp = async(req, res) => {
             email: {type: "email"},
             password: { type: "string", min: 3 },
             passwordConfirmation: { type: "equal", field: "password" },
-            role: { type: "string", enum: [ "user", "admin" ], optional: true, default: 'user'},
+            role: { type: "string", enum: [ "user", "admin", "company" ], optional: true, default: 'user'},
         }
 
         if(req.body.role) {

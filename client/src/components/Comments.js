@@ -18,7 +18,7 @@ export const Comments = ({comments}) => {
     }, [error, message, clearError]);
 
     const [form, setForm] = useState ( {
-        content_comment: '', post_id_comment: id
+        content_comment: '', event_id_comment: id
     });
 
     useEffect(() => {

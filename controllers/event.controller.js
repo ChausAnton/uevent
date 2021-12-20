@@ -7,6 +7,9 @@ const { Op } = require("sequelize");
 
 exports.getEventDetail = async(req, res) => {
     const result = await db.sequelize.query("select * from Category_sub_tables inner join Categories on Category_sub_tables.category_id = Categories.id inner join events on Category_sub_tables.event_id = events.id left join comments on events.id = comments.event_id_comment inner join users on events.author_id = users.id where events.id = " + req.params.id + " ORDER BY Category_sub_tables.category_id ASC;", { type: db.sequelize.QueryTypes.SELECT });
+    if(!result[0]) {
+        return res.status(404).send({message: "event not found"})
+    }
     let data = {
         Event_data: {
             event_id: result[0].event_id,
@@ -14,8 +17,11 @@ exports.getEventDetail = async(req, res) => {
             content: result[0].content,
             likes: result[0].likes,
             status: result[0].status,
-            createdAt: result[0].EventCreatedAt,
-            updatedAt: result[0].EventUpdatedAt,
+            ticketPrice: result[0].ticketPrice,
+            promoCode: result[0].promoCode,
+            eventLocation: result[0].eventLocation,
+            eventDate: result[0].eventDate,
+            createdAt: result[0].eventCreatedAt,
         },
 
         Author_data: {
@@ -159,8 +165,9 @@ exports.createEvent = async(req, res) => {
             ticketPrice: {type: "number", optional: false},
             promoCode: {type: "string", optional: true, min: 4, max: 4},
             eventLocation: {type: "string", optional: false},
+            eventDate: {type: "string", optional: false}
         };
-        console.log(typeof req.body.category_id)
+
         let data = {
             author_id: res.locals.user.id,
             title: req.body.title,
@@ -168,9 +175,10 @@ exports.createEvent = async(req, res) => {
             category_id: req.body.category_id,
             likes: 0,
             status: "active",
-            ticketPrice: req.body.ticketPrice,
+            ticketPrice: (req.body.ticketPrice ? parseInt(req.body.ticketPrice) : null),
             promoCode: req.body.promoCode,
             eventLocation: req.body.eventLocation,
+            eventDate: req.body.eventDate
         };
 
         const v = new Validator();
@@ -209,6 +217,7 @@ exports.updateEvent = async(req, res) => {
         ticketPrice: {type: "number", optional: true},
         promoCode: {type: "string", optional: true, min: 4, max: 4},
         eventLocation: {type: "string", optional: true},
+        eventDate: {type: "string", optional: true},
     }
    
     let data = {
@@ -216,9 +225,10 @@ exports.updateEvent = async(req, res) => {
         title: req.body.title,
         content: req.body.content,
         category_id: req.body.category_id,
-        ticketPrice: req.body.ticketPrice,
+        ticketPrice: (req.body.ticketPrice ? parseInt(req.body.ticketPrice) : null),
         promoCode: req.body.promoCode,
         eventLocation: req.body.eventLocation,
+        eventDate: req.body.eventDate,
     }
 
     const v = new Validator();
@@ -401,8 +411,11 @@ exports.getEventPerPage = async(req, res) => {
                     real_name: event.real_name,
                     title: event.title,
                     status: event.status,
-                    createdAt: event.EventCreatedAt,
-                    updatedAt: event.EventUpdatedAt
+                    ticketPrice: event.ticketPrice,
+                    promoCode: event.promoCode,
+                    eventDate: event.eventDate,
+                    eventLocation: event.eventLocation,
+                    createdAt: event.eventCreatedAt,
                 }
             })
             res.status(200).send({events: [...data], eventsCount: count[0][Object.keys(count[0])[0]], CurPage: req.params.page})
@@ -428,18 +441,21 @@ exports.getEventPerPage = async(req, res) => {
         if(!events.length || !count.length)
             res.status(404).send({message: "events not found"})
         else {
-            const data = events.map((Event) => { 
+            const data = events.map((event) => { 
                 return {
-                    id: Event.id,
-                    author_id: Event.author_id,
-                    content: Event.content,
-                    createdAt: Event.createdAt,
-                    likes: Event.likes,
-                    rating: Event.rating,
-                    real_name: Event.real_name,
-                    title: Event.title,
-                    createdAt: Event.EventCreatedAt,
-                    updatedAt: Event.EventUpdatedAt
+                    id: event.id,
+                    author_id: event.author_id,
+                    content: event.content,
+                    createdAt: event.createdAt,
+                    likes: event.likes,
+                    rating: event.rating,
+                    real_name: event.real_name,
+                    title: event.title,
+                    ticketPrice: event.ticketPrice,
+                    promoCode: event.promoCode,
+                    eventLocation: event.eventLocation,
+                    eventDate: event.eventDate,
+                    createdAt: event.eventCreatedAt,
                 }
             })
             res.status(200).send({events: [...data], eventsCount: count[0][Object.keys(count[0])[0]], CurPage: req.params.page})
